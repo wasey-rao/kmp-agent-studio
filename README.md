@@ -110,3 +110,7 @@ Each is a `SKILL.md` under `kmp-studio/skills/`. They hold rules, contracts and 
 - iOS code can be written on Windows but only compiled on a Mac. The team reports iOS as not compiled when it runs on Windows.
 - The team never creates signing keys, Firebase config files, ad unit IDs or store products. It lists those in `.studio/setup-needed.md` and `.studio/release-checklist.md` for you to do.
 - Cost shown in the app is the API-rate figure reported by Claude Code for the session.
+
+## License
+
+[MIT](LICENSE)
