@@ -1,0 +1,11 @@
+{
+  "name": "kmp-studio-local",
+  "owner": { "name": "KMP Studio" },
+  "plugins": [
+    {
+      "name": "kmp-studio",
+      "source": "./kmp-studio",
+      "description": "Role-based agent team and Kotlin Multiplatform skills for building Compose Multiplatform apps from a prompt."
+    }
+  ]
+}

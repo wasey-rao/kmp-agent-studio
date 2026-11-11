@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "studio-web",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "app/server/index.js"
+      ],
+      "port": 4517
+    },
+    {
+      "name": "studio-demo",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "app/server/index.js",
+        "--demo",
+        "--port=4518"
+      ],
+      "port": 4518
+    }
+  ]
+}

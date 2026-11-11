@@ -1,0 +1,9 @@
+{
+  "name": "kmp-studio",
+  "displayName": "KMP Studio",
+  "version": "0.1.0",
+  "description": "A software-company style agent team (product, research, architecture, development, QA, review, release) with per-role models and Kotlin Multiplatform skills for building Compose Multiplatform apps from a prompt.",
+  "author": { "name": "KMP Studio" },
+  "license": "MIT",
+  "keywords": ["kotlin-multiplatform", "compose-multiplatform", "android", "ios", "agents"]
+}

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KMP Agent Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <h1>KMP Agent Studio</h1>
+      <span id="demo-badge" class="badge" hidden>Demo mode · no tokens used</span>
+    </div>
+    <div class="top-actions">
+      <span id="connection" class="connection" role="status"></span>
+      <button id="check-btn" type="button" class="btn ghost" title="Sends one small Haiku request to confirm your Claude login works">Check connection</button>
+      <button id="settings-btn" type="button" class="btn ghost">Settings</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel team" aria-label="Team">
+      <div class="panel-head">
+        <h2>Team</h2>
+        <p class="hint">Each role runs on its own model. Changes apply to the next run.</p>
+      </div>
+      <div id="roster" class="roster"></div>
+    </aside>
+
+    <section class="work" aria-label="Work">
+      <form id="composer" class="composer">
+        <p id="notice" class="notice" role="alert" hidden></p>
+        <h2>What should the team do?</h2>
+        <div class="modes" role="radiogroup" aria-label="Kind of work">
+          <label><input type="radio" name="mode" value="build" checked><span>New app</span></label>
+          <label><input type="radio" name="mode" value="feature"><span>Add feature</span></label>
+          <label><input type="radio" name="mode" value="fix"><span>Fix bug</span></label>
+          <label><input type="radio" name="mode" value="chat"><span>Ask the team</span></label>
+        </div>
+        <p id="mode-hint" class="hint"></p>
+
+        <label class="field">
+          <span>Project folder</span>
+          <span class="folder-row">
+            <input id="project-dir" type="text" list="recent-projects" placeholder="Absolute path, created if it does not exist" autocomplete="off" spellcheck="false" required>
+            <button id="browse-btn" type="button" class="btn" hidden>Browse</button>
+          </span>
+          <datalist id="recent-projects"></datalist>
+        </label>
+
+        <label class="field">
+          <span id="prompt-label">Describe the app</span>
+          <textarea id="prompt" rows="6" required></textarea>
+        </label>
+
+        <div class="composer-foot">
+          <p id="composer-error" class="error-text" role="alert"></p>
+          <button id="start-btn" type="submit" class="btn primary">Start the team</button>
+        </div>
+      </form>
+
+      <div id="run-view" class="run-view" hidden>
+        <div class="run-bar">
+          <div class="run-meta">
+            <span id="run-status" class="status-pill"></span>
+            <span id="run-project" class="run-project"></span>
+          </div>
+          <div class="run-actions">
+            <button id="open-folder-btn" type="button" class="btn ghost" hidden>Open folder</button>
+            <button id="stop-btn" type="button" class="btn danger">Stop</button>
+            <button id="new-run-btn" type="button" class="btn">New run</button>
+          </div>
+        </div>
+        <div id="feed" class="feed" aria-live="polite"></div>
+        <form id="followup" class="followup">
+          <input id="followup-input" type="text" placeholder="Send a follow-up to the team" autocomplete="off">
+          <button type="submit" class="btn primary">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <aside class="panel side" aria-label="Run details">
+      <section>
+        <div class="panel-head"><h2>Usage</h2></div>
+        <div class="cost-row">
+          <span class="cost" id="total-cost">–</span>
+          <span class="hint" id="cost-note">Cost appears when a turn finishes.</span>
+        </div>
+        <div id="model-usage"></div>
+        <h3>Tokens by role</h3>
+        <div id="role-usage" class="role-usage"><p class="hint">No run yet.</p></div>
+      </section>
+      <section>
+        <div class="panel-head"><h2>Handoff files</h2></div>
+        <div id="handoff" class="handoff"><p class="hint">Roles pass work through files in <code>.studio/</code>.</p></div>
+      </section>
+      <section>
+        <div class="panel-head"><h2>Skills</h2></div>
+        <ul id="skills" class="skills"></ul>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="settings-dialog">
+    <form method="dialog" id="settings-form">
+      <h2>Settings</h2>
+      <label class="field">
+        <span>Manager model</span>
+        <select id="manager-model"></select>
+        <small class="hint">The manager coordinates the roles and sees every handoff. A cheaper model here saves the most tokens.</small>
+      </label>
+      <fieldset class="field">
+        <legend>Approvals</legend>
+        <label class="choice"><input type="radio" name="permission" value="ask"><span><b>Ask me</b> before running commands. File edits inside the project are automatic.</span></label>
+        <label class="choice"><input type="radio" name="permission" value="autopilot"><span><b>Autopilot</b>: run commands inside the project without asking. Access outside the project folder still asks.</span></label>
+      </fieldset>
+      <label class="choice"><input type="checkbox" id="load-user-settings"><span>Load my Claude Code settings and installed skills</span></label>
+      <div class="dialog-foot">
+        <button type="button" class="btn" id="settings-cancel">Cancel</button>
+        <button type="submit" class="btn primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="file-dialog" class="file-dialog">
+    <div class="dialog-head">
+      <h2 id="file-title"></h2>
+      <button type="button" class="btn ghost" id="file-close">Close</button>
+    </div>
+    <pre id="file-content"></pre>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
